@@ -2,8 +2,8 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.10 (2020-08-03)
+-------------------
 * Change PointCloud visualization type from flat squares to points in example rviz config
 * Bump minimum CMake version to 3.0.2 in all CMakeLists.txt
 * Fix xacro macro instantiation

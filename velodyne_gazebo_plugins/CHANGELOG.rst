@@ -2,8 +2,8 @@
 Changelog for package velodyne_gazebo_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.10 (2020-08-03)
+-------------------
 * Change PointCloud2 structure to match updated velodyne_pointcloud package
 * Bump minimum CMake version to 3.0.2 in all CMakeLists.txt
 * Contributors: Kevin Hallenbeck, Micho Radovnikovich
