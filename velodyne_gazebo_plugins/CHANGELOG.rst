@@ -2,6 +2,12 @@
 Changelog for package velodyne_gazebo_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Change PointCloud2 structure to match updated velodyne_pointcloud package
+* Bump minimum CMake version to 3.0.2 in all CMakeLists.txt
+* Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
 1.0.9 (2019-03-08)
 ------------------
 * Added min_intensity parameter to support cliping of low intensity returns
