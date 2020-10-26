@@ -1,10 +1,13 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 project(velodyne_description)
 
-find_package(catkin REQUIRED)
+add_compile_options(-std=c++14)
 
-catkin_package()
+find_package(ament_cmake_auto REQUIRED)
+find_package(xacro REQUIRED)
 
-install(DIRECTORY launch meshes rviz urdf world
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+ament_auto_find_build_dependencies()
+
+ament_auto_package(INSTALL_TO_SHARE
+    launch meshes rviz urdf world
 )
