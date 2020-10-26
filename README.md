@@ -1,3 +1,5 @@
+**This package is forked from https://bitbucket.org/DataspeedInc/velodyne_simulator/src/master/**
+
 # Velodyne Simulator
 URDF description and Gazebo plugins to simulate Velodyne laser scanners
 
