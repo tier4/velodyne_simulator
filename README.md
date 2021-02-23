@@ -40,8 +40,6 @@ URDF description and Gazebo plugins to simulate Velodyne laser scanners
     * Solution: User can reduce number of points (samples) or frequency (hz) in the urdf parameters, see [example.urdf.xacro](velodyne_description/urdf/example.urdf.xacro)
 * Gazebo crashes when updating HDL-32E sensors with default number of points. "Took over 1.0 seconds to update a sensor."
     * Solution: User can reduce number of points in urdf (same as above)
-* Gazebo versions in indigo and jade have different z orientations
-    * Solution: Maintain separate branches for urdf changes (gazebo2 and master)
 
 # Example Gazebo Robot
 ```roslaunch velodyne_description example.launch```

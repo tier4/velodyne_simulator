@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2015-2018, Dataspeed Inc.
+ *  Copyright (c) 2015-2021, Dataspeed Inc.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -53,6 +53,8 @@
 #include <sensor_msgs/PointCloud2.h>
 
 #include <tf/tf.h>
+
+static_assert(GAZEBO_MAJOR_VERSION > 2, "Gazebo version is too old");
 
 #if GAZEBO_GPU_RAY
 #define RaySensor GpuRaySensor
@@ -347,17 +349,9 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
       if ((MIN_RANGE < r) && (r < MAX_RANGE)) {
         *((float*)(ptr + 0)) = r * cos(pAngle) * cos(yAngle); // x
         *((float*)(ptr + 4)) = r * cos(pAngle) * sin(yAngle); // y
-#if GAZEBO_MAJOR_VERSION > 2
         *((float*)(ptr + 8)) = r * sin(pAngle); // z
-#else
-        *((float*)(ptr + 8)) = -r * sin(pAngle); // z
-#endif
         *((float*)(ptr + 12)) = intensity; // intensity
-#if GAZEBO_MAJOR_VERSION > 2
         *((uint16_t*)(ptr + 16)) = j; // ring
-#else
-        *((uint16_t*)(ptr + 16)) = verticalRangeCount - 1 - j; // ring
-#endif
         *((float*)(ptr + 18)) = 0.0; // time
         ptr += POINT_STEP;
       } else if (organize_cloud_) {
@@ -365,11 +359,7 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
         *((float*)(ptr + 4)) = nanf(""); // y
         *((float*)(ptr + 8)) = nanf(""); // x
         *((float*)(ptr + 12)) = nanf(""); // intensity
-#if GAZEBO_MAJOR_VERSION > 2
         *((uint16_t*)(ptr + 16)) = j; // ring
-#else
-        *((uint16_t*)(ptr + 16)) = verticalRangeCount - 1 - j; // ring
-#endif
         *((float*)(ptr + 18)) = 0.0; // time
         ptr += POINT_STEP;
       }
