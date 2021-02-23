@@ -2,6 +2,11 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add organize_cloud parameter to match velodyne_pointcloud
+* Contributors: Kevin Hallenbeck
+
 1.0.10 (2020-08-03)
 -------------------
 * Change PointCloud visualization type from flat squares to points in example rviz config
