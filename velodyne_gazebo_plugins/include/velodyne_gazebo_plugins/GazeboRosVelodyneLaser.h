@@ -105,6 +105,9 @@ namespace gazebo
     /// \brief frame transform name, should match link name
     private: std::string frame_name_;
 
+    /// \brief organize cloud
+    private: bool organize_cloud_;
+
     /// \brief the intensity beneath which points will be filtered
     private: double min_intensity_;
 

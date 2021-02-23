@@ -123,6 +123,13 @@ void GazeboRosVelodyneLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _s
     frame_name_ = _sdf->GetElement("frameName")->Get<std::string>();
   }
 
+  if (!_sdf->HasElement("organize_cloud")) {
+    ROS_INFO("Velodyne laser plugin missing <organize_cloud>, defaults to false");
+    organize_cloud_ = false;
+  } else {
+    organize_cloud_ = _sdf->GetElement("organize_cloud")->Get<bool>();
+  }
+
   if (!_sdf->HasElement("min_range")) {
     ROS_INFO("Velodyne laser plugin missing <min_range>, defaults to 0");
     min_range_ = 0;
@@ -310,7 +317,9 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
       // Ignore points that lay outside range bands or optionally, beneath a
       // minimum intensity level.
       if ((MIN_RANGE >= r) || (r >= MAX_RANGE) || (intensity < MIN_INTENSITY) ) {
-        continue;
+        if (!organize_cloud_) {
+          continue;
+        }
       }
 
       // Noise
@@ -336,14 +345,26 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
 
       // pAngle is rotated by yAngle:
       if ((MIN_RANGE < r) && (r < MAX_RANGE)) {
-        *((float*)(ptr + 0)) = r * cos(pAngle) * cos(yAngle);
-        *((float*)(ptr + 4)) = r * cos(pAngle) * sin(yAngle);
+        *((float*)(ptr + 0)) = r * cos(pAngle) * cos(yAngle); // x
+        *((float*)(ptr + 4)) = r * cos(pAngle) * sin(yAngle); // y
 #if GAZEBO_MAJOR_VERSION > 2
-        *((float*)(ptr + 8)) = r * sin(pAngle);
+        *((float*)(ptr + 8)) = r * sin(pAngle); // z
 #else
-        *((float*)(ptr + 8)) = -r * sin(pAngle);
+        *((float*)(ptr + 8)) = -r * sin(pAngle); // z
 #endif
-        *((float*)(ptr + 12)) = intensity;
+        *((float*)(ptr + 12)) = intensity; // intensity
+#if GAZEBO_MAJOR_VERSION > 2
+        *((uint16_t*)(ptr + 16)) = j; // ring
+#else
+        *((uint16_t*)(ptr + 16)) = verticalRangeCount - 1 - j; // ring
+#endif
+        *((float*)(ptr + 18)) = 0.0; // time
+        ptr += POINT_STEP;
+      } else if (organize_cloud_) {
+        *((float*)(ptr + 0)) = nanf(""); // x
+        *((float*)(ptr + 4)) = nanf(""); // y
+        *((float*)(ptr + 8)) = nanf(""); // x
+        *((float*)(ptr + 12)) = nanf(""); // intensity
 #if GAZEBO_MAJOR_VERSION > 2
         *((uint16_t*)(ptr + 16)) = j; // ring
 #else
@@ -356,13 +377,20 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
   }
 
   // Populate message with number of valid points
+  msg.data.resize(ptr - msg.data.data()); // Shrink to actual size
   msg.point_step = POINT_STEP;
-  msg.row_step = ptr - msg.data.data();
-  msg.height = 1;
-  msg.width = msg.row_step / POINT_STEP;
   msg.is_bigendian = false;
-  msg.is_dense = true;
-  msg.data.resize(msg.row_step); // Shrink to actual size
+  if (organize_cloud_) {
+    msg.width = verticalRangeCount;
+    msg.height = msg.data.size() / POINT_STEP / msg.width;
+    msg.row_step = POINT_STEP * msg.width;
+    msg.is_dense = false;
+  } else {
+    msg.width = 1;
+    msg.height = msg.data.size() / POINT_STEP;
+    msg.row_step = msg.data.size();
+    msg.is_dense = true;
+  }
 
   // Publish output
   pub_.publish(msg);
