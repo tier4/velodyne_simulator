@@ -376,8 +376,8 @@ void GazeboRosVelodyneLaser::OnScan(ConstLaserScanStampedPtr& _msg)
     msg.row_step = POINT_STEP * msg.width;
     msg.is_dense = false;
   } else {
-    msg.width = 1;
-    msg.height = msg.data.size() / POINT_STEP;
+    msg.width = msg.data.size() / POINT_STEP;
+    msg.height = 1;
     msg.row_step = msg.data.size();
     msg.is_dense = true;
   }
