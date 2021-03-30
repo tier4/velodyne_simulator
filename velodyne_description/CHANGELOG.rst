@@ -2,6 +2,9 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.11 (2021-02-23)
 -------------------
 * Add organize_cloud parameter to match velodyne_pointcloud

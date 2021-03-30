@@ -2,6 +2,12 @@
 Changelog for package velodyne_gazebo_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix swapped PointCloud2 width/height
+  Bug introduced in recent commit adding organize_cloud option
+* Contributors: Kevin Hallenbeck
+
 1.0.11 (2021-02-23)
 -------------------
 * Remove support for end-of-life ROS distributions
