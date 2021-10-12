@@ -2,6 +2,15 @@
 Changelog for package velodyne_simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merged in ROS2 Foxy support (pull request #14)
+  * Remove support for old Gazebo versions
+  * Lazy subscriber using timer in the absence of publisher connection callback
+  * Python launch file
+  * Add env-hooks for GAZEBO_MODEL_PATH
+* Contributors: Kevin Hallenbeck, Gonzalo de Pedro, Joep Tool
+
 1.0.12 (2021-03-30)
 -------------------
 
