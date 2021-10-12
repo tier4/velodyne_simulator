@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>velodyne_gazebo_plugins</name>
   <version>1.0.12</version>
   <description>
@@ -13,14 +13,17 @@
   <url type="repository">https://bitbucket.org/dataspeedinc/velodyne_simulator</url>
   <url type="bugtracker">https://bitbucket.org/dataspeedinc/velodyne_simulator/issues</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>roscpp</depend>
+  <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
-  <depend>tf</depend>
+  <depend>tf2</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>gazebo_dev</depend>
   <depend>gazebo_ros</depend>
 
   <export>
+    <build_type>ament_cmake</build_type>
   </export>
 
 </package>

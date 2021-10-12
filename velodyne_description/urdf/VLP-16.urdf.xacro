@@ -88,13 +88,16 @@
               <stddev>0.0</stddev>
             </noise>
           </ray>
-          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_gpu_laser.so">
-            <topicName>${topic}</topicName>
-            <frameName>${name}</frameName>
+          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
+            <ros>
+              <namespace>/${name}</namespace>
+              <remapping>~/out:=${topic}</remapping>
+            </ros>
+            <frame_name>${name}</frame_name>
             <organize_cloud>${organize_cloud}</organize_cloud>
             <min_range>${min_range}</min_range>
             <max_range>${max_range}</max_range>
-            <gaussianNoise>${noise}</gaussianNoise>
+            <gaussian_noise>${noise}</gaussian_noise>
           </plugin>
         </sensor>
       </xacro:if>
@@ -130,12 +133,15 @@
             </noise>
           </ray>
           <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
-            <topicName>${topic}</topicName>
-            <frameName>${name}</frameName>
+            <ros>
+              <namespace>/${name}</namespace>
+              <remapping>~/out:=${topic}</remapping>
+            </ros>
+            <frame_name>${name}</frame_name>
             <organize_cloud>${organize_cloud}</organize_cloud>
             <min_range>${min_range}</min_range>
             <max_range>${max_range}</max_range>
-            <gaussianNoise>${noise}</gaussianNoise>
+            <gaussian_noise>${noise}</gaussian_noise>
           </plugin>
         </sensor>
       </xacro:unless>
