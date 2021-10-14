@@ -2,6 +2,9 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.0 (2021-10-12)
 ------------------
 * Merged in ROS2 Foxy support (pull request #14)

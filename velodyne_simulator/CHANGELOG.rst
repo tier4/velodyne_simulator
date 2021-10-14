@@ -2,6 +2,11 @@
 Changelog for package velodyne_simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove unused ament_lint_auto that was causing build error
+* Contributors: Kevin Hallenbeck
+
 2.0.0 (2021-10-12)
 ------------------
 * Merged in ROS2 Foxy support (pull request #14)
