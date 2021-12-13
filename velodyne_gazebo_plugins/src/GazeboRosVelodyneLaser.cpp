@@ -76,7 +76,8 @@ void GazeboRosVelodyneLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _s
   parent_ray_sensor_ = _parent;
 
   // Sets the frame name to either the supplied name, or the name of the sensor
-  frame_name_ = gazebo_ros::SensorFrameID(*_parent, *_sdf);
+  std::string tf_prefix = _sdf->Get<std::string>("tf_prefix", std::string("")).first;
+  frame_name_ = tf_resolve(tf_prefix, gazebo_ros::SensorFrameID(*_parent, *_sdf));
 
   if (!_sdf->HasElement("organize_cloud")) {
     RCLCPP_INFO(ros_node_->get_logger(), "Velodyne laser plugin missing <organize_cloud>, defaults to false");

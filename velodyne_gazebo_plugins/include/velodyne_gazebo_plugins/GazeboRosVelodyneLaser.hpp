@@ -113,6 +113,17 @@ namespace gazebo
     private: gazebo::transport::SubscriberPtr sub_;
     private: void OnScan(const ConstLaserScanStampedPtr &_msg);
 
+    /// \brief Re-implementation of old tf::resolve
+    private: static std::string tf_resolve(const std::string& prefix, const std::string& frame_id)
+    {
+      std::string output;
+      if (prefix.empty()) {
+        output = frame_id;
+      } else {
+        output = prefix + "/" + frame_id;
+      }
+      return output;
+    }
   };
 
 } // namespace gazebo
