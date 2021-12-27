@@ -2,6 +2,11 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adds tf_prefix SDF parameter
+* Contributors: Micho Radovnikovich
+
 2.0.1 (2021-10-14)
 ------------------
 
